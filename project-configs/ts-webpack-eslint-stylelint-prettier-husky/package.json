@@ -6,11 +6,13 @@
   "scripts": {
     "build": "webpack --config webpack.config.ts --mode production",
     "start": "webpack serve --config webpack.config.ts --mode development",
-    "prettier-check": "prettier '**/*.ts' --check",
-    "prettier-diff": "prettier '**/*.ts' --list-different",
-    "prettier-unknown": "prettier '**/*.ts' --write --ignore-unknown",
-    "lint": "eslint . --ext .ts",
+    "format": "prettier --write .",
+    "lint": "eslint . --ext .ts,.js",
+    "lint:fix": "eslint . --ext .ts,.js --fix",
     "stylelint": "stylelint '**/*.scss'",
+    "stylelint:fix": "npx stylelint '**/*.scss' --fix",
+    "linters": "npm run format; npm run lint; npm run stylelint",
+    "linters:fix": "npm run format; npm run lint:fix; npm run stylelint:fix",
     "prepare": "cd .. && husky install [childFolderName]/.husky"
   },
   "keywords": [],

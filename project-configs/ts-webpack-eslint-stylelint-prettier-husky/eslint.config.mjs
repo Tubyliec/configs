@@ -7,7 +7,7 @@ import eslintPluginUnicorn from 'eslint-plugin-unicorn';
 /** @type {import('eslint').Linter.Config[]} */
 export default [
   { ignores: ['node_modules/', '**/*.config.*'] },
-  { files: ['**/*.{js,ts}'] },
+  { files: ['**/*.{js,ts,mjs,cts}'] },
   { languageOptions: { globals: { ...globals.browser, ...globals.node } } },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
