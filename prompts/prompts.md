@@ -23,6 +23,10 @@ Follow the [project structure guide](guides/project-structure/project-structure.
 
 For languages use instructions from [languages/scss.md](guides/languages.md)
 
+## Git guide
+
+For git use [git-guide.md](guides/git/git-guide.md)
+
 ## Logging
 
 - Create a file called `issues.md` and record your suggestions for improvement there.
