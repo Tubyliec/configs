@@ -1,3 +1,6 @@
+## [Component template]
+
+```javascript
 class Component {
   #element = null;
   #listeners = new Map();
@@ -166,3 +169,31 @@ class Component {
     this.#children.clear();
   }
 }
+```
+
+## [Usage example]
+
+```javascript
+// Create a component
+const button = new Component({
+  tag: "button",
+  classes: ["btn", "btn-primary"],
+  text: "Click me",
+  attrs: { type: "button", disabled: false },
+});
+// Add event listeners
+button.addListener("click", () => console.log("Button clicked"));
+// Append to DOM
+document.body.append(button.getElement());
+// Cleanup when done
+button.destroyElement();
+```
+
+## [Rules]
+
+- Components should be created using the `new` keyword.
+- Components should be appended to the DOM using the `append` method.
+- Components should be removed from the DOM using the `destroyElement` method.
+- Components should be destroyed using the `destroy` method.
+- Components should be destroyed using the `destroyChildren` method.
+- setText should be used only to set the text content of a component. Do not use it to set other components or attributes.

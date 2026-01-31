@@ -112,4 +112,4 @@ src
 - Group related utilities/constants in the folders by functionality (e.g., `date-utils`)
 - Avoid large utility files with mixed functionality
 - Each utility/constant file should have a single, clear responsibility
-- Follow [naming conventions](../../naming/naming.md) for all files
+- Follow [naming conventions](../../../guides/naming/naming.md) for all files

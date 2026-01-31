@@ -1,188 +1,155 @@
-## For JavaScript + SCSS + HTML
+# Frontend JavaScript/TypeScript Project Structure
+
+## Recommended Folder Organization
 
 ```
-project-root/
-├─ public/
-│   ├─ images/
-│   ├─ fonts/
-│   └─ icons/
-├─ app/
-│   ├─ core/
-│   ├─ pages/
-│   ├─ features/
-│   ├─ entities/
-│   ├─ widgets/
-│   ├─ shared/
-│   │   ├─ ui/
-│   │   ├─ constants/
-│   │   ├─ utilities/
-│   │   └─ styles/
-│   │       ├── _fonts.scss
-│   │       ├── _mixins.scss
-│   │       ├── _placeholders.scss
-│   │       ├── _reset.scss
-│   │       ├── _themes.scss
-│   │       └── _variables.scss
-│   ├─ index.html
-│   ├─ index.js
-│   └─ styles.scss
-├─ package.json
-└─ README.md
+src/
+├── components/          # Reusable UI components
+│   ├── common/         # Shared components (Button, Input, Modal)
+│   ├── layout/         # Layout components (Header, Footer, Sidebar)
+│   └── pages/          # Page-level components
+├── pages/              # Route-based page components
+├── services/           # API services and external integrations
+├── utils/              # Utility functions and helpers
+├── hooks/              # Custom hooks (React/Vue composition API)
+├── store/              # State management (Redux, Zustand, Pinia)
+├── types/              # TypeScript type definitions
+├── constants/          # Application constants
+├── styles/             # Global styles and CSS-in-JS
+├── assets/             # Static assets (images, fonts, icons)
+└── tests/              # Test files (or alongside source files)
+
+config/                 # Build and configuration files
+docs/                   # Project documentation
+scripts/                # Build and deployment scripts
 ```
 
-## For TypeScript + SCSS + HTML
+## File Naming Conventions
 
-```
-project-root/
-├─ public/
-│   ├─ images/
-│   ├─ fonts/
-│   └─ icons/
-├─ app/
-│   ├─ core/
-│   ├─ pages/
-│   ├─ features/
-│   │   └─ model/
-│   │       ├─ interfaces/
-│   │       └─ types/
-│   ├─ entities/
-│   │   └─ model/
-│   │       ├─ interfaces/
-│   │       └─ types/
-│   ├─ widgets/
-│   ├─ shared/
-│   │   ├─ ui/
-│   │   ├─ constants/
-│   │   ├─ utilities/
-│   │   └─ styles/
-│   │       ├── _fonts.scss
-│   │       ├── _mixins.scss
-│   │       ├── _placeholders.scss
-│   │       ├── _reset.scss
-│   │       ├── _themes.scss
-│   │       └── _variables.scss
-│   ├─ index.html
-│   ├─ index.ts
-│   └─ styles.scss
-├─ package.json
-└─ README.md
+### Components
+- Use PascalCase for component files: `UserProfile.tsx`, `NavigationBar.vue`
+- Use kebab-case for non-component files: `user-profile.css`, `api-service.ts`
 
+### Types and Interfaces
+- Use PascalCase with suffix: `user.type.ts`, `user.interface.ts`
+- Group related types in feature-specific folders
+
+### Services
+- Use kebab-case with `-service` suffix: `api-service.ts`, `auth-service.ts`
+- Group by domain: `services/auth/`, `services/user/`
+
+## Code Organization Patterns
+
+### Component Structure
+```typescript
+// Component file structure
+export interface ComponentProps {
+  // Props interface
+}
+
+export const ComponentName: React.FC<ComponentProps> = ({ prop1, prop2 }) => {
+  // Component implementation
+  return <div>Component content</div>;
+};
 ```
 
-Each component must be self-contained in its own directory with the following structure:
+### Service Structure
+```typescript
+// Service file structure
+interface ApiServiceConfig {
+  baseURL: string;
+  timeout: number;
+}
 
+class ApiService {
+  private config: ApiServiceConfig;
+  
+  constructor(config: ApiServiceConfig) {
+    this.config = config;
+  }
+  
+  async getData(): Promise<DataModel> {
+    // Implementation
+  }
+}
 ```
-component-name/               
-├── сomponent-name.js    
-├── component-name.scss
+
+### State Management
+- Use feature-based state organization
+- Implement proper selectors for derived state
+- Follow naming conventions: `useStore`, `useFeatureStore`
+
+## Configuration Standards
+
+### TypeScript Configuration
+```json
+{
+  "compilerOptions": {
+    "strict": true,
+    "target": "ES2020",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  }
+}
 ```
 
-## Structure overview
+### ESLint Configuration
+```javascript
+module.exports = {
+  extends: [
+    'eslint:recommended',
+    '@typescript-eslint/recommended',
+    'plugin:react/recommended'
+  ],
+  rules: {
+    'prefer-const': 'error',
+    'no-var': 'error',
+    '@typescript-eslint/no-unused-vars': 'error'
+  }
+};
+```
 
----
+### Package.json Structure
+```json
+{
+  "name": "project-name",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "jest",
+    "lint": "eslint src --ext .ts,.tsx"
+  },
+  "dependencies": {
+    "react": "^18.0.0",
+    "typescript": "^4.9.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "eslint": "^8.0.0",
+    "typescript": "^4.9.0"
+  }
+}
+```
 
-### Project Root
+## Build and Deployment
 
-- **public/** – static assets served as-is (no build-time processing).
-- **app/** – application source code.
-- **package.json** – dependencies and scripts.
-- **README.md** – general project documentation.
+### Environment Configuration
+- Use `.env` files for environment-specific variables
+- Implement proper environment variable validation
+- Separate development, staging, and production configurations
 
----
+### Build Optimization
+- Implement code splitting for better performance
+- Use tree shaking to eliminate unused code
+- Optimize bundle size with proper imports
 
-### Public Folder
-
-- **images/** – images, backgrounds, illustrations, logos.
-- **fonts/** – font files (woff, woff2, ttf, etc.).
-- **icons/** – SVG icons or icon sets.
-
-All files in `public` are available via absolute paths.
-
----
-
-### App Folder
-
-The `app` folder contains all application logic and structure.
-
-#### **core/**
-
-- Application initialization and global configuration.
-- App-level setup, bootstrap logic, global listeners.
-- Does not contain UI components or business logic.
-
----
-
-#### **pages/**
-
-- Top-level application pages.
-- Page-specific scripts, templates, and styles.
-- Pages compose widgets, features, and entities.
-- Pages do not define models or business entities.
-
----
-
-#### **features/**
-
-- Reusable functional blocks that implement user interactions.
-- May include logic, UI, and side effects.
-
-**model/**
-
-- Contracts related to the feature.
-- Interfaces and types in TypeScript.
-- Documented data structures or JSDoc typings in JavaScript.
-
----
-
-#### **entities/**
-
-- Core business entities of the application.
-- Represent domain objects such as User, Product, or Order.
-- Reused across features, widgets, and pages.
-
-**model/**
-
-- Data structure definitions for the entity.
-- Interfaces or types in TypeScript.
-- Documented structures in JavaScript.
-
----
-
-#### **widgets/**
-
-- Composite UI blocks built from multiple components.
-- Used to assemble pages.
-- Combine entities, features, and shared UI.
-- Do not contain models.
-
----
-
-#### **shared/**
-
-Reusable resources not tied to business logic.
-
-- **ui/** – basic UI components (buttons, inputs, loaders).
-- **constants/** – global constants and configuration values.
-- **utilities/** – helper and utility functions.
-- **styles/** – global SCSS styles:
-  - `_fonts.scss` – font declarations.
-  - `_mixins.scss` – reusable SCSS mixins.
-  - `_placeholders.scss` – SCSS placeholders.
-  - `_reset.scss` – CSS reset or normalize.
-  - `_themes.scss` – theme definitions.
-  - `_variables.scss` – colors, spacing, breakpoints, etc.
-
----
-
-### Entry Files
-
-- **index.html** – main HTML entry point.
-- **index.js / index.ts** – application entry file.
-- **styles.scss** – root SCSS file that imports global styles.
-
-**File organization rules:**
-
-- Create separate files for utilities and constants whenever possible
-- Group related utilities/constants in the folders by functionality (e.g., `date-utils`, `api-constants`)
-- Avoid large utility files with mixed functionality
-- Each utility/constant file should have a single, clear responsibility
+### Deployment Strategy
+- Use CI/CD pipelines for automated deployment
+- Implement proper environment separation
+- Set up monitoring and error tracking

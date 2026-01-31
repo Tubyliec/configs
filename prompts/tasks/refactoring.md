@@ -2,6 +2,10 @@
 
 Analyze the project code for code smells, architectural issues, and potential performance bottlenecks.
 
+## Creation
+
+For creating a new project and components, follow the [Project Creation Guide](creation.md)
+
 ## Project Overhaul
 
 - Perform refactoring step by step - first move existing files by folders and update imports
